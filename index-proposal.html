@@ -1,0 +1,373 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>YPS導入ご提案書作成用調査シート</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+      padding: 1em;
+    }
+    form {
+  color: #0619ed; /* 濃い青色 */
+}
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #6d20e0;
+      color: white;
+      padding: 1em;
+      border-radius: 8px 8px 0 0;
+    }
+    .icon-title {
+      margin: 0;
+    }
+    .back-to-top {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th.required::after {
+      content: " ※";
+      color: red;
+      font-size: 0.9em;
+      margin-left: 0.2em;
+    }
+    th {
+  width: 180px;
+}
+    input.short { width: 120px; }
+    input.medium { width: 200px; }
+    input.wide { width: 300px; }
+    input, textarea {
+      padding: 6px;
+      font-size: 1em;
+      box-sizing: border-box;
+      border-radius: 4px;
+      border: 1px solid #0619ed !important; /* ←ここを濃いブルーに変更 */
+    
+    }
+    input:focus, textarea:focus {
+      outline: none;
+       border-color: #0619ed; /* ←フォーカス時も濃いブルーに変更 */
+     
+    }
+    .submit-btn {
+      background-color: #6d20e0;
+      color: white;
+      border: none;
+      padding: 0.5em 1em;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+    .submit-btn:hover {
+      background-color: #5a19c0;
+    }
+    .button-row {
+      display: flex;
+      gap: 1em;
+      margin-top: 1em;
+    }
+    .message, .error-message {
+      margin-top: 1em;
+      font-weight: bold;
+      padding: 1em;
+      border-radius: 8px;
+      display: none;
+    }
+    .message {
+      color: #155724;
+      background-color: #d4edda;
+      border-color: #c3e6cb;
+    }
+    .error-message {
+      color: #721c24;
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+    }
+  </style>
+</head>
+<body>
+
+  <section id="proposal-form">
+  <div class="section-header">
+    <div class="left"><h2 class="icon-title">📘 YPS導入ご提案書作成用調査シート</h2></div>
+    <div class="right"><a href="index.html" class="back-to-top">🔝 TOPへ</a></div>
+    
+  </div>
+
+
+  <div id="proposalThanks" class="message">入力データを承りました。ありがとうございます。</div>
+  <div id="proposalError" class="error-message"></div>
+
+  <form id="proposalForm_yps" action="proposal.php" method="POST">
+    <p style="color: red;">※ = 入力必須です</p>
+    <table>
+      <tr>
+        <th class="required">①入力日</th>
+        <td><input type="date" name="input_date" class="short" required></td>
+        <th class="required">②会社名</th>
+        <td><input type="text" name="company_name" class="wide" required></td>
+      </tr>
+      <tr>
+        <th class="required">③会社〒</th>
+        <td><input type="number" name="company_yubin" class="short" required maxlength="8"></td>
+        <th class="required">③会社住所</th>
+        <td><input type="text" name="company_address" class="wide" required></td>
+      </tr>
+      <tr>
+        <th class="required">④会社TEL</th>
+        <td><input type="number" name="company_tel" class="medium" required></td>
+        <th class="required">⑤会社FAX</th>
+        <td><input type="number" name="company_fax" class="medium" required></td>
+      </tr>
+      <tr>
+        <th class="required">⑥ご担当者名</th>
+        <td><input type="text" name="tanto_name" class="medium" required></td>
+        <th class="required">⑦ご担当者TEL</th>
+        <td><input type="number" name="tanto_tel" class="medium" required></td>
+      </tr>
+      <tr>
+        <th class="required">⑧ご担当者FAX</th>
+        <td><input type="number" name="tanto_fax" class="medium" required></td>
+        <th class="required">⑨ご担当者mail</th>
+        <td><input type="email" name="tanto_mail" class="wide" required></td>
+      </tr>
+      <tr>
+        <th class="required">⑩発電所名</th>
+        <td><input type="text" name="hatuden_name" class="wide" required></td>
+        <th></th>
+        <td></td>
+      </tr>
+      <tr>
+        <th class="required">⑪発電所〒</th>
+        <td><input type="number" name="hatuden_yubin" class="short" required maxlength="8"></td>
+        <th class="required">⑪発電所住所</th>
+        <td><input type="text" name="hatuden_address" class="wide" required></td>
+      </tr>
+      <tr>
+        <th class="required">⑫発電所TEL</th>
+        <td><input type="number" name="hatuden_tel" class="medium" required></td>
+        <th class="required">⑬発電所FAX</th>
+        <td><input type="number" name="hatuden_fax" class="medium" required></td>
+      </tr>
+      <tr>
+        <th colspan="4">☆運開前の場合は計画値をご記入ください（消費税別）</th>
+      </tr>
+      <tr>
+        <th class="required">⑭発電出力（KW）</th>
+        <td><input type="number" name="hatuden_syuturyoku" class="short" required></td>
+        <th class="required">⑮運開日</th>
+        <td><input type="date" name="unkai_date" class="short" required></td>
+      </tr>
+      <tr>
+        <th class="required">⑯年間売電電力量（平均KWh）</th>
+        <td><input type="number" name="nenkan_baiden_ryo" class="short" required></td>
+        <th>⑰チップ燃料使用量（平均t/年）</th>
+        <td><input type="number" name="chipsiyou_ave" class="short" ></td>
+      </tr>
+      <tr>
+        <th class="required">⑱年間売電金額（平均円）</th>
+        <td><input type="number" name="nenkan_baiden_gaku" class="short" required></td>
+        <th>⑲燃料コスト（未利用材 円/t）</th>
+        <td><input type="number" name="chip_cost_miriyou" class="short" ></td>
+      </tr>
+      <tr>
+        <th class="required">⑳燃料コスト（一般木質 円/t）</th>
+        <td><input type="number" name="chip_cost_mokusitu" class="short" required></td>
+        <th>㉑燃料コスト（建設廃材 円/t）</th>
+        <td><input type="number" name="chip_cost_kensetu" class="short" ></td>
+      </tr>
+      <tr>
+        <th class="required">㉒売電金額（平均 円/KWh）</th>
+        <td><input type="number" name="baidenngaku_avr_kwh" class="short" required></td>
+        <th class="required">㉓年間所内消費電力量（平均KWh）</th>
+        <td><input type="number" name="syonai_syohi_avr_kwh" class="short" required></td>
+      </tr>
+      <tr>
+        <th class="required">㉔所内ピーク電力（KW）</th>
+        <td><input type="number" name="syonai_peek_kwh" class="short" required></td>
+        <th>㉕所内最低消費電力（KW）</th>
+        <td><input type="number" name="syonai_saitei_syohi_kw" class="short" ></td>
+      </tr>
+      <tr>
+        <th class="required">㉖年間稼働時間（平均 時間）</th>
+        <td colspan="3"><input type="number" name="kadojikan_nenkan_avr_jikan" class="short" required></td>
+      </tr>
+      <tr>
+        <th>㉗ご要望等ご記入ください</th>
+        <td colspan="3"><textarea name="feedback" rows="4" style="width: 100%;"></textarea></td>
+      </tr>
+    </table>
+    <button type="button" class="submit-btn" onclick="showProposalConfirm_yps()">確認画面へ</button>
+  </form>
+
+  <div id="proposalConfirmScreen" style="display:none;">
+    <h3>以下の内容で送信します。よろしいですか？</h3>
+    <div id="proposalConfirmContent"></div>
+    <form id="proposalConfirmForm" action="proposal.php" method="POST">
+      <div class="button-row">
+        <button type="submit" class="submit-btn">送信する</button>
+        <button type="button" class="submit-btn" onclick="backToidProposalForm_yps()">修正する</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+const labelMap = {
+  "input_date": "①入力日", "company_name": "②会社名", "company_yubin": "③会社〒", "company_address": "③会社住所",
+  "company_tel": "④会社TEL", "company_fax": "⑤会社FAX", "tanto_name": "⑥ご担当者名", "tanto_tel": "⑦ご担当者TEL",
+  "tanto_fax": "⑧ご担当者FAX", "tanto_mail": "⑨ご担当者mail", "hatuden_name": "⑩発電所名", "hatuden_yubin": "⑪発電所〒",
+  "hatuden_address": "⑪発電所住所", "hatuden_tel": "⑫発電所TEL", "hatuden_fax": "⑬発電所FAX", "hatuden_syuturyoku": "⑭発電出力（KW）",
+  "unkai_date": "⑮運開日", "nenkan_baiden_ryo": "⑯年間売電電力量（KWh）", "chipsiyou_ave": "⑰チップ燃料使用量（t/年）",
+  "nenkan_baiden_gaku": "⑱年間売電金額（円）", "chip_cost_miriyou": "⑲燃料コスト（未利用材 円/t）",
+  "chip_cost_mokusitu": "⑳燃料コスト（一般木質 円/t）", "chip_cost_kensetu": "㉑燃料コスト（建設廃材 円/t）",
+  "baidenngaku_avr_kwh": "㉒売電金額（円/KWh）", "syonai_syohi_avr_kwh": "㉓年間所内消費電力量（KWh）",
+  "syonai_peek_kwh": "㉔所内ピーク電力（KW）", "syonai_saitei_syohi_kw": "㉕所内最低消費電力（KW）",
+  "kadojikan_nenkan_avr_jikan": "㉖年間稼働時間（時間）", "feedback": "㉗ご要望など"
+};
+
+function showMessage(type, message) {
+  const messageElement = type === 'error' ? document.getElementById("proposalError") : document.getElementById("proposalThanks");
+  const otherMessageElement = type === 'error' ? document.getElementById("proposalThanks") : document.getElementById("proposalError");
+  
+  if (message) {
+    messageElement.textContent = message;
+    messageElement.style.display = 'block';
+  } else {
+    messageElement.style.display = 'none';
+  }
+  otherMessageElement.style.display = 'none';
+}
+
+function showProposalConfirm_yps() {
+  const form = document.getElementById("proposalForm_yps");
+  const confirmScreen = document.getElementById("proposalConfirmScreen");
+  const confirmContent = document.getElementById("proposalConfirmContent");
+  const confirmForm = document.getElementById("proposalConfirmForm");
+
+  const required = form.querySelectorAll("[required]");
+  for (const el of required) {
+    if (!el.value.trim()) {
+      showMessage('error', `${labelMap[el.name] || el.name} を入力してください`);
+      el.focus();
+      return;
+    }
+  }
+
+  let html = "<table style='width:100%;border-collapse:collapse;'>";
+  confirmForm.querySelectorAll("input[type=hidden]").forEach(e => e.remove());
+
+  for (const el of form.elements) {
+    if (!el.name) continue;
+    const label = labelMap[el.name] || el.name;
+    const value = el.value.replace(/\n/g, "<br>");
+    html += `<tr><th style="text-align:left;border:1px solid #ccc;padding:4px;">${label}</th><td style="border:1px solid #ccc;padding:4px;">${value}</td></tr>`;
+    const hidden = document.createElement("input");
+    hidden.type = "hidden";
+    hidden.name = el.name;
+    hidden.value = el.value;
+    confirmForm.appendChild(hidden);
+  }
+
+  html += "</table>";
+  confirmContent.innerHTML = html;
+
+  form.style.display = "none";
+  confirmScreen.style.display = "block";
+  showMessage('thanks', null);
+  showMessage('error', null);
+}
+
+function backToidProposalForm_yps() {
+  document.getElementById("proposalForm_yps").style.display = "block";
+  document.getElementById("proposalConfirmScreen").style.display = "none";
+  showMessage('thanks', null);
+  showMessage('error', null);
+}
+
+document.getElementById("proposalConfirmForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+
+  fetch(this.action, {
+    method: "POST",
+    body: formData
+  })
+  .then(res => {
+    if (res.ok) {
+      document.getElementById("proposalConfirmScreen").style.display = "none";
+      const form = document.getElementById("proposalForm_yps");
+      form.reset();
+      form.style.display = "block";
+      showMessage('thanks', "入力データを承りました。ありがとうございます。");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      showMessage('error', "送信に失敗しました。");
+    }
+  })
+  .catch(() => {
+    showMessage('error', "通信エラーが発生しました。");
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const companyZipInput = document.querySelector('[name="company_yubin"]');
+  const companyAddressInput = document.querySelector('[name="company_address"]');
+  const powerPlantZipInput = document.querySelector('[name="hatuden_yubin"]');
+  const powerPlantAddressInput = document.querySelector('[name="hatuden_address"]');
+
+  // 共通の住所検索ロジック
+  function fetchAddress(zipCode, addressElement) {
+    const zip = String(zipCode).replace(/[^0-9]/g, "");
+    
+    if (zip.length === 7) {
+      fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zip}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.results) {
+            const result = data.results[0];
+            const fullAddress = `${result.address1}${result.address2}${result.address3}`;
+            addressElement.value = fullAddress;
+          } else {
+            addressElement.value = "住所が見つかりませんでした。";
+          }
+        })
+        .catch(error => {
+          console.error("通信エラー:", error);
+          addressElement.value = "通信エラーが発生しました。";
+        });
+    }
+  }
+
+  // 会社の郵便番号入力フィールド
+  companyZipInput.addEventListener("input", function () {
+    fetchAddress(this.value, companyAddressInput);
+  });
+
+  // 発電所の郵便番号入力フィールド
+  powerPlantZipInput.addEventListener("input", function () {
+    fetchAddress(this.value, powerPlantAddressInput);
+  });
+});
+</script>
+
+</body>
+</html>

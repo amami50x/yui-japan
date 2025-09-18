@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Google翻訳テスト</title>
+</head>
+<body>
+  <header>
+    <div id="google_translate_element" style="position:fixed; top:20px; right:20px; z-index:9999;"></div>
+  </header>
+
+  <section style="height:2000px;">
+    <h1>スクロールテスト</h1>
+    <p>このページはGoogle翻訳ウィジェットの表示確認用です。</p>
+  </section>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'ja',
+        includedLanguages: 'en,zh-CN,fr,es',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

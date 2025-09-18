@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>CSVダウンロードページ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="form-style.css">
+  <style>
+    .download-section {
+      max-width: 600px;
+      margin: 2em auto;
+      background-color: #f0f8ff;
+      padding: 1.5em;
+      border-radius: 8px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+    }
+    .download-section h2 {
+      color: #004080;
+      margin-bottom: 1em;
+      font-size: 1.4em;
+    }
+    .download-list {
+      list-style: none;
+      padding: 0;
+    }
+    .download-list li {
+      margin-bottom: 1em;
+    }
+    .download-btn {
+      display: inline-block;
+      padding: 0.6em 1.2em;
+      background-color: #0066cc;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .download-btn:hover {
+      background-color: #004c99;
+    }
+  </style>
+</head>
+<body>
+
+<div class="download-section">
+  <h2>📥 CSVデータダウンロード</h2>
+  <ul class="download-list">
+    <li><a href="download-new.php?type=proposal" class="download-btn">YPS導入提案書入力データ</a></li>
+    <li><a href="download-new.php?type=idsyosai" class="download-btn">ID詳細入力データ</a></li>
+    <li><a href="download-new.php?type=contact" class="download-btn">お問い合わせ・調査書入力データ</a></li>
+    <!--<li><a href="download-zip.php" class="download-btn">📦 一括ダウンロード（ZIP形式・処理日付き）</a></li>-->
+  </ul>
+</div>
+
+</body>
+</html>

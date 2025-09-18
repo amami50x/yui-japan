@@ -1,0 +1,335 @@
+
+ /* リセットとベーススタイル */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: #4a148c;
+    }
+
+    /* ヘッダーとフッター */
+    header, footer {
+      background: #6a1b9a;
+      color: white;
+      padding: 1.2em;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      font-size: 1.8em;
+      margin-bottom: 0.3em;
+    }
+
+    header h2 {
+      font-size: 1.3em;
+      font-weight: normal;
+    }
+
+    /* メインレイアウト */
+    .main-container {
+      display: flex;
+      max-width: 1200px;
+      margin: 2em auto;
+      padding: 0 1em;
+      gap: 2em;
+    }
+
+    /* メニューを左側に表示 */
+    .side-menu {
+      flex: 0 0 250px;
+      background: white;
+      border: 2px solid #8e24aa;
+      border-radius: 10px;
+      padding: 1.5em;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      height: fit-content;
+    }
+
+    .side-menu h3 {
+      text-align: center;
+      color: #6a1b9a;
+      margin-bottom: 1em;
+      padding-bottom: 0.5em;
+      border-bottom: 2px solid #e1bee7;
+    }
+
+    .side-menu ul {
+      list-style: none;
+    }
+
+    .side-menu li {
+      margin-bottom: 0.8em;
+    }
+
+    .side-menu a {
+      display: block;
+      padding: 0.6em 1em;
+      color: #6a1b9a;
+      text-decoration: none;
+      background: #f3e5f5;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      border-left: 4px solid #8e24aa;
+    }
+
+    .side-menu a:hover {
+      background: #8e24aa;
+      color: white;
+      transform: translateX(5px);
+    }
+
+    /* コンテンツエリア */
+    .content {
+      flex: 1;
+    }
+
+    /* コンテナ */
+    .container {
+      padding: 1em;
+    }
+
+    /* カタログ画像 */
+    .catalog-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 1em 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* TOPへ戻るボタン */
+    .back-to-top {
+      display: inline-block;
+      background: #7b1fa2;
+      color: white;
+      padding: 0.5em 1em;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 0.9em;
+      transition: background 0.3s ease;
+    }
+
+    .back-to-top:hover {
+      background: #4a148c;
+    }
+
+    /* セクションヘッダー */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      border-bottom: 1px solid #ccc;
+      flex-wrap: wrap;
+      gap: 1em;
+      background-color: #8e24aa;
+      border-radius: 5px;
+      margin-bottom: 1.5em;
+    }
+
+    .section-header .right {
+      margin-left: auto;
+    }
+
+    .section-header .left {
+      min-width: 120px;
+    }
+
+    .icon-title {
+      color: white;
+      margin: 0;
+      font-size: 1.3em;
+    }
+
+    /* 提案コンテンツ */
+    .proposal-content {
+      background-color: #f9f9f9;
+      padding: 30px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      color: #4a148c;
+      font-weight: 600;
+      margin: 1em 0;
+    }
+
+    .proposal-content h3 {
+      color: #6a1b9a;
+      font-size: 1.4em;
+      border-bottom: 4px solid #ddd;
+      padding-bottom: 5px;
+      text-align: center;
+      margin-top: 0;
+      font-weight: 700;
+      margin-bottom: 1em;
+    }
+
+    .proposal-content p {
+      margin-bottom: 1em;
+      font-size: 1.15em;
+    }
+
+    .text-right {
+      text-align: right;
+      margin-top: 1em;
+      font-size: 1.1em;
+    }
+
+    /* ハイライトボックス */
+    .highlight-box {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f3e5f5;
+    }
+
+    .highlight-box p {
+      font-weight: 700;
+      font-size: 1.2em;
+      color: #6a1b9a;
+      margin-bottom: 1em;
+    }
+
+    .highlight-box ul {
+      margin-top: 1em;
+      padding-left: 1.5em;
+      color: #4a148c;
+      margin-bottom: 1.5em;
+    }
+
+    .highlight-box li {
+      margin-bottom: 0.5em;
+    }
+
+    .center-text {
+      text-align: center;
+      margin: 1.5em 0;
+      font-weight: 700;
+      font-size: 1.3em;
+      color: #d81b60;
+    }
+
+    /* CTAボタン */
+    .cta-button {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #8e24aa;
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: #6a1b9a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    /* 連絡先情報 */
+    .contact-info {
+      margin-top: 20px;
+      font-size: 1.05em;
+      color: #4a148c;
+    }
+
+    .contact-info a {
+      color: #6a1b9a;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+
+    /* ヒーローセクション */
+    .hero {
+      text-align: center;
+      margin: 1em auto;
+      max-width: 1000px;
+    }
+
+    /* レスポンシブデザイン */
+    @media (max-width: 900px) {
+      .main-container {
+        flex-direction: column;
+      }
+      
+      .side-menu {
+        flex: 0 0 auto;
+        width: 100%;
+        margin-bottom: 1.5em;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .section-header {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .section-header .right {
+        margin-left: 0;
+        margin-top: 1em;
+      }
+      
+      .proposal-content {
+        padding: 15px;
+      }
+      
+      .container {
+        padding: 0.5em;
+      }
+      
+      header h1 {
+        font-size: 1.5em;
+      }
+      
+      header h2 {
+        font-size: 1.1em;
+      }
+    }
+
+    /* フッター */
+    footer {
+      margin-top: 2em;
+      padding: 1.5em;
+    }
+
+    footer p {
+      margin: 0.5em 0;
+    }
+
+    /* アクセスカウンター */
+    .access-counter {
+      display: inline-block;
+      font-weight: bold;
+      color: #ffab00;
+    }
+
+    /* Google翻訳ウィジェット */
+    .translate-widget {
+  position: relative;
+  z-index: 1000;
+  padding: 10px;
+  background-color: #f0f8ff;
+  text-align: right;
+  font-size: 14px;
+}

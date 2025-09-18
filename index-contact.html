@@ -1,0 +1,309 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>お問い合わせ・調査書送信フォーム</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+      padding: 1em;
+    }
+    form {
+  color: #0619ed; /* 濃い青色 */
+}
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #6d20e0;
+      color: white;
+      padding: 1em;
+      border-radius: 8px 8px 0 0;
+    }
+    .icon-title {
+      margin: 0;
+    }
+    .back-to-top {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th.required::after {
+      content: " ※";
+      color: red;
+      font-size: 0.9em;
+      margin-left: 0.2em;
+    }
+    input.short { width: 120px; }
+    input.midoru { width: 120px; }
+    input.wide { width: 300px; }
+    input, textarea {
+      padding: 6px;
+      font-size: 1em;
+      box-sizing: border-box;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #6d20e0;
+    }
+    .submit-btn {
+      background-color: #6d20e0;
+      color: white;
+      border: none;
+      padding: 0.5em 1em;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+    .submit-btn:hover {
+      background-color: #5a19c0;
+    }
+    .button-row {
+      display: flex;
+      gap: 1em;
+      margin-top: 1em;
+    }
+    .message, .error-message {
+      margin-top: 1em;
+      font-weight: bold;
+      padding: 1em;
+      border-radius: 8px;
+      display: none;
+    }
+    .message {
+      color: #155724;
+      background-color: #d4edda;
+      border-color: #c3e6cb;
+    }
+    .error-message {
+      color: #721c24;
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+    }
+
+input[name="id-tanto_tel"] {
+  width: 100px id-company_name !important;
+}
+input[name="id-sechi-basyo"] {
+  width: 400px  !important;
+}
+input[name="id-kinyu_name"] {         
+  width: 200px;
+}
+input[name="id-tanto_mail"] {
+  width: 300px; 
+}
+input[name="id-company_name"] {
+  width: 350px;
+}
+  </style>
+</head>
+<body>
+
+ <section id="IDsyosai-form">
+  <div class="section-header">
+    <div class="left"><h2 class="icon-title">📘 お問い合わせ・調査書送信フォーム</h2></div>
+    <div class="right"><a href="index.html" class="back-to-top">🔝 TOPへ</a></div>
+    
+  </div>
+
+  <div id="proposalThanksMessage" class="message">入力データを承りました。ありがとうございます。</div>
+  <div id="proposalErrorMessage" class="error-message"></div>
+
+  <form id="contactForm" action="contact.php" method="POST">
+    <p style="color: red;">※ = 入力必須です</p>
+    <table>
+      <tr><th class="required">ご記入日</th>
+      <td><input type="date" name="id-input_date" class="short" required></td>
+      <th class="required">貴社名</th>
+      <td><input type="text" name="id-company_name" required></td></tr>
+
+      <tr><th class="required">所在地〒</th>
+      <td><input type="number" name="id-sechi-yubin" class="short" required maxlength="8"></td>
+      <th class="required">所在地住所</th>
+      <td><input type="text" name="id-sechi-basyo" quired></td></tr>
+
+      <tr><th class="required">ご担当者名</th>
+      <td><input type="text" name="id-kinyu_name" required></td>
+      <th class="required">電話番号</th><td><input type="number" name="id-tanto_tel" required></td></tr> 
+      <tr><th class="required">メールアドレス</th><td colspan="3"><input type="email" name="id-tanto_mail" required></td></tr>
+      <tr><th>ご質問・調査書内容など</th>
+  <td colspan="3">
+    <textarea name="id-feedback" rows="4" style="width:100%; box-sizing:border-box;"></textarea>
+  </td>
+</tr>
+    </table>
+    <button type="button" class="submit-btn" onclick="showProposalConfirm_id()">確認画面へ</button>
+  </form>
+
+  <div id="proposalConfirmScreen" style="display:none;"></div>
+</section>
+
+<script>
+const labelMap_contact = {
+  "id-input_date": "ご記入日",
+  "id-company_name": "貴社名",
+  "id-sechi-yubin": "所在地〒",
+  "id-sechi-basyo": "所在地住所",
+  "id-kinyu_name": "ご担当者名",
+  "id-tanto_tel": "電話番号",
+  "id-tanto_mail": "メールアドレス",
+  "id-feedback": "ご質問・調査書内容など"
+};
+
+function showMessage(type, message) {
+  const messageElement = type === 'error' ? document.getElementById("proposalErrorMessage") : document.getElementById("proposalThanksMessage");
+  const otherMessageElement = type === 'error' ? document.getElementById("proposalThanksMessage") : document.getElementById("proposalErrorMessage");
+  
+  if (message) {
+    messageElement.textContent = message;
+    messageElement.style.display = 'block';
+  } else {
+    messageElement.style.display = 'none';
+  }
+  otherMessageElement.style.display = 'none';
+}
+
+function showProposalConfirm_id() {
+  const form = document.getElementById("contactForm");
+  const confirmScreen = document.getElementById("proposalConfirmScreen");
+  
+  const required = form.querySelectorAll("[required]");
+  for (const el of required) {
+    if (!el.value.trim()) {
+      showMessage('error', `${labelMap_contact[el.name] || el.name} を入力してください`);
+      el.focus();
+      return;
+    }
+  }
+
+  let html = "<h3>以下の内容で送信します。よろしいですか？</h3><table style='width:100%;border-collapse:collapse;'>";
+  confirmScreen.innerHTML = "";
+  const confirmForm = document.createElement("form");
+  confirmForm.id = "proposalConfirmForm";
+  confirmForm.action = form.action;
+  confirmForm.method = "POST";
+
+  for (const el of form.elements) {
+    if (!el.name) continue;
+    const label = labelMap_contact[el.name] || el.name;
+    const value = el.value.replace(/\n/g, "<br>");
+    html += `<tr><th style="text-align:left;border:1px solid #ccc;padding:4px;">${label}</th><td style="border:1px solid #ccc;padding:4px;">${value}</td></tr>`;
+    const hidden = document.createElement("input");
+    hidden.type = "hidden";
+    hidden.name = el.name;
+    hidden.value = el.value;
+    confirmForm.appendChild(hidden);
+  }
+
+  html += "</table>";
+  const content = document.createElement("div");
+  content.innerHTML = html;
+  confirmScreen.appendChild(content);
+
+  const btnRow = document.createElement("div");
+  btnRow.className = "button-row";
+
+  const submitBtn = document.createElement("button");
+  submitBtn.type = "submit";
+  submitBtn.className = "submit-btn";
+  submitBtn.textContent = "送信する";
+
+  const backBtn = document.createElement("button");
+  backBtn.type = "button";
+  backBtn.className = "submit-btn";
+  backBtn.textContent = "修正する";
+  backBtn.onclick = function() {
+    confirmScreen.style.display = "none";
+    form.style.display = "block";
+    showMessage('thanks', null);
+    showMessage('error', null);
+  };
+
+  btnRow.appendChild(submitBtn);
+  btnRow.appendChild(backBtn);
+  confirmForm.appendChild(btnRow);
+  confirmScreen.appendChild(confirmForm);
+
+  form.style.display = "none";
+  confirmScreen.style.display = "block";
+  showMessage('thanks', null);
+  showMessage('error', null);
+
+  confirmForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    fetch(this.action, {
+      method: "POST",
+      body: formData
+    })
+    .then(res => {
+      if (res.ok) {
+        confirmScreen.style.display = "none";
+        form.reset();
+        form.style.display = "block";
+        showMessage('thanks', "入力データを承りました。ありがとうございます。");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        showMessage('error', "送信に失敗しました。");
+      }
+    })
+    .catch(() => {
+      showMessage('error', "通信エラーが発生しました。");
+    });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const zipInput = document.querySelector('[name="id-sechi-yubin"]');
+  const addressInput = document.querySelector('[name="id-sechi-basyo"]');
+
+  // 郵便番号から住所を取得する共通ロジック
+  function fetchAddress(zipCode, addressElement) {
+    const zip = String(zipCode).replace(/[^0-9]/g, "");
+    
+    if (zip.length === 7) {
+      fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zip}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.results) {
+            const result = data.results[0];
+            const fullAddress = `${result.address1}${result.address2}${result.address3}`;
+            addressElement.value = fullAddress;
+          } else {
+            addressElement.value = "住所が見つかりませんでした。";
+          }
+        })
+        .catch(error => {
+          console.error("通信エラー:", error);
+          addressElement.value = "通信エラーが発生しました。";
+        });
+    }
+  }
+
+  // 郵便番号入力フィールド
+  zipInput.addEventListener("input", function () {
+    fetchAddress(this.value, addressInput);
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<img src="images/image1_thumb.jpg" alt="2025おはら写真1" class="thumbnail" data-type="image" data-src="images/img_5680.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真2" class="thumbnail" data-type="image" data-src="images/img_5689.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真4" class="thumbnail" data-type="image" data-src="images/img_5690.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真5" class="thumbnail" data-type="image" data-src="images/img_5696-min.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真6" class="thumbnail" data-type="image" data-src="images/img_5691.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真7" class="thumbnail" data-type="image" data-src="images/img_5692.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真8" class="thumbnail" data-type="image" data-src="images/img_5695.jpg" data-description="おはら2025写真。"> 
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真9" class="thumbnail" data-type="image" data-src="images/img_5696-min.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真10" class="thumbnail" data-type="image" data-src="images/img_5710-min.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真11" class="thumbnail" data-type="image" data-src="images/img_5716-min.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真12" class="thumbnail" data-type="image" data-src="images/img_5711-min.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真13" class="thumbnail" data-type="image" data-src="images/img_5712-min.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真14" class="thumbnail" data-type="image" data-src="images/img_5713-min.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真15" class="thumbnail" data-type="image" data-src="images/img_5715-min.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真16" class="thumbnail" data-type="image" data-src="images/img_5719-min.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真17" class="thumbnail" data-type="image" data-src="images/img_5721-min.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真19" class="thumbnail" data-type="image" data-src="images/img_5722-min.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真20" class="thumbnail" data-type="image" data-src="images/img_5723-min.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真21" class="thumbnail" data-type="image" data-src="images/img_5726-min.jpg" data-description="おはら2025写真。">
+        <img src="images/image1_thumb.jpg" alt="2025おはら写真23" class="thumbnail" data-type="image" data-src="images/img_5750.jpg" data-description="おはら2025写真。">

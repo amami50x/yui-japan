@@ -1,0 +1,347 @@
+
+/* =========================
+   基本スタイル
+   ========================= */
+
+html { }
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: hsla(155, 59%, 72%, 0.85);
+}
+
+header, footer {
+  background: #2405ed;
+  color: white;
+  padding: 1em;
+  text-align: center;
+}
+
+.icon-title {
+  color: white;
+  margin: 0;
+}
+
+nav a {
+  color: white;
+  margin: 0 1em;
+  text-decoration: none;
+}
+
+.container {
+  padding: 1em;
+}
+
+.catalog-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 1em 0;
+  border: 1px solid #ccc;
+}
+
+.back-to-top {
+  display: inline-block;
+  background: #5a07f5;
+  color:white;
+  padding: 0.3em 0.6em;
+  margin: 2em auto;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 0.8em;
+}
+
+.back-to-top:hover {
+  background: #005500;
+}
+
+/* =========================
+   メニュー
+   ========================= */
+
+.menu-overlay {
+  position: absolute;
+  top: 7cm;
+  left: 50px;
+  z-index: 1000;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 1.5em;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.menu-list li {
+  margin-bottom: 0.5em;
+}
+
+.menu-list a {
+  display: inline-block;
+  padding: 6px 10px;
+  background-color: #eef0e8;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  color: #333;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: left;
+  white-space: nowrap;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.menu-list a:hover {
+  background-color: #d0d3c9;
+  transform: translateY(-2px);
+}
+
+.menu-list a.small-text {
+  font-size: 0.92em;
+}
+
+/* メニュータイトル */
+.menu-title {
+  display: block;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #4704f2;
+  letter-spacing: 6px;
+  padding: 6px 0;
+  margin-bottom: 8px;
+  border-bottom: 2px solid #ccc;
+  background-color: #e0e3da;
+  border-radius: 6px;
+}
+
+/* =========================
+   PC用: 常時表示
+   ========================= */
+
+/* PCはそのまま */
+@media screen and (min-width: 820px) {
+  .menu-toggle { display: none; }
+  .menu-list { display: block; }
+}
+
+/* スマホ用：ボタンで表示/非表示、横並び */
+@media screen and (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1100;
+    background-color: #4704f2;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+
+  .menu-list {
+    display: none;          /* 初期非表示 */
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    background-color: #eef0e8;
+    padding: 5px 0;
+    overflow-x: auto;       /* 横スクロール可能 */
+    white-space: nowrap;    /* 横並び固定 */
+    z-index: 1000;
+  }
+
+  .menu-list.show {
+    display: block;         /* ボタン押下で表示 */
+  }
+
+  .menu-list ul {
+    display: flex;
+    flex-direction: row;    /* 横並び */
+    padding: 0 10px;
+    margin: 0;
+    gap: 5px;
+  }
+
+  .menu-list li {
+    display: inline-block;
+  }
+
+  .menu-list a, .menu-title {
+    display: inline-block;
+    padding: 6px 10px;
+    color: #333;
+    font-weight: bold;
+    text-decoration: none;
+    white-space: nowrap;    /* 改行しない */
+  }
+
+  .menu-list a:hover {
+    text-decoration: underline;
+  }
+}
+
+
+
+
+
+
+/* =========================
+   フォーム・テーブル・共通
+   ========================= */
+
+form {
+  display: block;
+  max-width: 100%;
+  margin-left: 0;
+}
+
+form label {
+  font-weight: bold;
+}
+
+form input,
+form textarea {
+  padding: 0.5em;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+  flex-wrap: wrap;
+  gap: 1em;
+  background-color: #6d20e0;
+  color: white;
+}
+
+.section-header .center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.section-header .right {
+  margin-left: auto;
+}
+
+.section-header .left {
+  min-width: 120px;
+}
+
+.section-header h2 {
+  margin: 0;
+}
+
+.section-header .back-to-top {
+  font-size: 0.9em;
+  padding: 0.3em 0.8em;
+  margin: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1em;
+  background-color: #fefefe;
+  box-shadow: 0 0 4px rgba(0,0,0,0.1);
+  font-size: 1.05em;
+}
+
+th {
+  background-color: #e0f0ff;
+  color: #004080;
+  font-weight: bold;
+  padding: 12px;
+  border: 1px solid #a3c8e0;
+  text-align: left;
+  width: 80px;
+}
+
+td {
+  background-color: #ffffff;
+  padding: 12px;
+  border: 1px solid #c0d8ee;
+}
+
+th.required::after {
+  content: " ※";
+  color: red;
+  font-size: 0.9em;
+  margin-left: 0.2em;
+}
+
+.submit-btn {
+  margin-top: 1em;
+  padding: 0.6em 1.2em;
+  font-size: 1.1em;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #004c99;
+}
+
+.button-row {
+  display: flex;
+  gap: 1em;
+  margin-top: 1em;
+}
+
+.message {
+  margin-top: 1em;
+  font-weight: bold;
+  color: #006600;
+  background-color: #e6ffe6;
+  padding: 0.8em;
+  border: 1px solid #99cc99;
+  border-radius: 4px;
+  font-size: 1.05em;
+}
+
+/* =========================
+   翻訳ウィジェットなど
+   ========================= */
+
+.translate-widget {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 9999;
+  background-color: #f0f8ff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  font-size: 14px;
+}
