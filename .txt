@@ -1,0 +1,12 @@
+# 実行ファイル
+*.exe
+*.msi
+
+# 圧縮ファイル
+*.zip
+*.7z
+
+# エディタ・OS関連
+.vscode/
+.DS_Store
+Thumbs.db
