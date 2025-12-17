@@ -1,17 +1,21 @@
+
+
 <?php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-
 mb_language("Japanese");
 mb_internal_encoding("UTF-8");
 
-$filename = __DIR__ . '/idsyosai.csv';
+$csv_dir = __DIR__;
+$filename = $csv_dir . '/idsyosai.csv';
 
+// POSTデータ取得
 $data = [];
 foreach ($_POST as $k => $v) {
     $data[$k] = trim($v);
 }
 
+// CSV列マッピング
 $mapping = [
     'id-input_date' => 'ご記入日',
     'id-company_name' => '貴社名',
@@ -31,65 +35,87 @@ $mapping = [
     'id-feedback' => 'ご要望等ご記入ください'
 ];
 
+header('Content-Type: application/json; charset=UTF-8');
+
 try {
-    // CSV保存処理
+    // ----------------------------------------------------
+    // 🚨 必須チェック（id-feedback 以外の項目すべて）
+    // ----------------------------------------------------
+    $required_keys = array_diff(array_keys($mapping), ['id-feedback']);
+    $missing = [];
+    foreach ($required_keys as $key) {
+        if (!isset($data[$key]) || $data[$key] === '') {
+            $missing[] = $mapping[$key];
+        }
+    }
+
+    if (!empty($missing)) {
+        // 空欄がある場合はCSVへ書き込まずエラー応答
+        http_response_code(400);
+        echo json_encode([
+            'status' => 'error',
+            'message' => '必須項目が未入力です: ' . implode(', ', $missing)
+        ]);
+        exit;
+    }
+
+    // ----------------------------------------------------
+    // CSV書き込み
+    // ----------------------------------------------------
     $is_new = !file_exists($filename);
-    $fp = fopen($filename, $is_new ? 'w' : 'a');
-    if (!$fp) throw new Exception('CSVファイルを開けません');
+    $fp = fopen($filename, 'a+');
+    if (!$fp) throw new Exception('CSVファイルを開けませんでした。');
 
     if ($is_new) {
         $header = ['処理年月日', '書き込み時間'];
-        foreach ($mapping as $label) {
-            $header[] = $label;
-        }
-        $header = array_map(fn($h) => mb_convert_encoding($h, 'SJIS-win', 'UTF-8'), $header);
-        fputcsv($fp, $header);
+        foreach ($mapping as $label) $header[] = $label;
+        $header_sjis = array_map(fn($h) => mb_convert_encoding($h, 'SJIS-win', 'UTF-8'), $header);
+        fputcsv($fp, $header_sjis);
     }
 
     $row = [date('Y-m-d'), date('Y-m-d H:i:s')];
     foreach (array_keys($mapping) as $key) {
-        $value = $data[$key] ?? '';
-        $value = str_replace(["\r\n", "\r", "\n"], "\r\n", $value);
+        $value = str_replace(["\r\n", "\r", "\n"], ' ', $data[$key] ?? '');
         $row[] = $value;
     }
-    $row = array_map(fn($v) => mb_convert_encoding($v, 'SJIS-win', 'UTF-8'), $row);
-    fputcsv($fp, $row);
+
+    $row_sjis = array_map(fn($v) => mb_convert_encoding($v, 'SJIS-win', 'UTF-8'), $row);
+    fputcsv($fp, $row_sjis);
     fclose($fp);
 
-    // ✉️ メール送信処理（ISO-2022-JPで文字化け対策）
+    // ----------------------------------------------------
+    // ✉️ メール送信
+    // ----------------------------------------------------
     $to = 'info@yuijima.com';
     $from = 'amami50x@yuijima.com';
 
-    // 本文作成
-    $message = "ID詳細入力フォームの入力内容です。\r\n\r\n以下の内容をご確認ください：\r\n\r\n";
+    $message = "ID詳細入力フォームの入力内容です。\r\n\r\n";
     foreach ($mapping as $key => $label) {
-        $value = $data[$key] ?? '';
-        $message .= "{$label}：{$value}\r\n";
+        $message .= "{$label}：" . ($data[$key] ?? '') . "\r\n";
     }
     $encoded_message = mb_convert_encoding($message, 'ISO-2022-JP', 'UTF-8');
 
-    // 件名と差出人名（MIMEエンコード）
-    $subject_raw = "HP-INPUT";
+    $subject_raw = "HP-INPUT ID詳細フォームより受付";
     $encoded_subject = mb_encode_mimeheader(mb_convert_encoding($subject_raw, 'ISO-2022-JP', 'UTF-8'), 'ISO-2022-JP');
 
     $from_name_raw = "YUIJIMAシステム";
     $encoded_from_name = mb_encode_mimeheader(mb_convert_encoding($from_name_raw, 'ISO-2022-JP', 'UTF-8'), 'ISO-2022-JP');
 
-    // ヘッダー構成
     $headers = "From: {$encoded_from_name} <{$from}>\r\n";
     if (!empty($data['id-tanto_mail'])) {
         $headers .= "Reply-To: " . $data['id-tanto_mail'] . "\r\n";
     }
     $headers .= "Content-Type: text/plain; charset=ISO-2022-JP\r\n";
 
-    // メール送信
     if (!mb_send_mail($to, $encoded_subject, $encoded_message, $headers)) {
-        error_log("メール送信に失敗しました");
-        echo json_encode(['status' => 'error', 'message' => 'メール送信に失敗しました']);
+        echo json_encode(['status' => 'ok', 'warning' => 'データ保存成功、メール送信失敗']);
     } else {
         echo json_encode(['status' => 'ok']);
     }
 
 } catch (Exception $e) {
-    echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+    http_response_code(500);
+    error_log("致命的エラー: " . $e->getMessage());
+    echo json_encode(['status' => 'error', 'message' => 'サーバー処理中にエラーが発生しました。']);
 }
+?>

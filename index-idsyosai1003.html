@@ -1,0 +1,248 @@
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ID詳細入力フォーム</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+      padding: 1em;
+    }
+    form {
+  color: #0619ed; /* 濃い青色 */
+}
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #6d20e0;
+      color: white;
+      padding: 1em;
+    }
+    .icon-title {
+      margin: 0;
+    }
+    .back-to-top {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th.required::after {
+      content: " ※";
+      color: red;
+      font-size: 0.9em;
+      margin-left: 0.2em;
+    }
+    th {
+  width: 160px;
+}
+    input, textarea {
+      padding: 6px;
+      font-size: 1em;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .submit-btn {
+      margin-top: 1em;
+      padding: 0.5em 1em;
+      font-size: 1em;
+    }
+    .button-row {
+      display: flex;
+      gap: 1em;
+      margin-top: 1em;
+    }
+    .message {
+      margin-top: 1em;
+      font-weight: bold;
+      color: blue;
+      display: none;
+    }
+    .short {
+  width: 120px;
+}
+.medium {
+  width: 200px !important;
+
+}
+  </style>
+</head>
+<body>
+
+  <section id="IDsyosai-form">
+  <div class="section-header">
+    <div class="left"><h2 class="icon-title">📘 ID詳細入力シート</h2></div>
+    <div class="right"><a href="index.html" class="back-to-top">🔝 TOPへ</a></div>
+    
+  </div>
+
+
+
+  <div id="proposalThanksMessage" class="message">入力データを承りました。ありがとうございます。</div>
+
+  <form id="idproposalForm" action="idsyosai.php" method="POST">
+    <p style="color: red;">※ = 入力必須です</p>
+    <table> 
+      <tr><th class="required">ご記入日</th>
+      <td><input type="date" name="id-input_date" class="short" required></td>
+      <th class="required">貴社名</th><td><input type="text" name="id-company_name" required></td></tr>
+
+      <tr><th class="required">御記入者名</th>
+      <td><input type="text" name="id-kinyu_name" class="medium" required></td>
+      <th class="required">お電話</th><td><input type="number" name="id-tanto_tel" class="medium" required></td></tr>
+
+      <tr><th class="required">メールアドレス</th>
+      <td colspan="3"><input type="email" name="id-tanto_mail" required></td></tr>
+
+      <tr><th class="required">認定日</th>
+      <td><input type="date" name="id-ninteibi" class="short" required></td>
+      <th class="required">設備ID</th><td><input type="text" name="id-setubi-id" class="medium" required></td></tr>
+
+      <tr><th class="required">担当経済産業局</th>
+      <td><input type="text" name="id-sangyokyoku" required></td>
+      <th class="required">事業者名</th>
+      <td><input type="text" name="id-jigyosyamei" class="medium" class="medium" required></td></tr>
+
+      <tr><th class="required">代表者氏名</th>
+      <td><input type="text" name="id-daihyosya-simei" class="medium" required></td>
+      <th class="required">発電設備の区分</th>
+      <td><input type="text" name="id-setubi-kubun" class="medium" required></td></tr>
+
+      <tr><th class="required">出力認定日</th>
+      <td><input type="date" name="id-syuturyoku-ninteibi" class="short" required></td>
+      <th class="required">設備名称</th>
+      <td><input type="text" name="id-setubi-meisho" required></td></tr>
+
+      <tr><th class="required">設置場所</th>
+      <td><input type="text" name="id-sechi-basyo" required></td>
+      <th class="required">接続契約締結日</th>
+      <td><input type="date" name="id-setuzoku-keiyakubi" class="short" required></td></tr>
+
+      <tr><th>ご要望等ご記入ください</th>
+      <td colspan="3"><textarea name="id-feedback" rows="4"></textarea></td></tr>
+
+    </table>
+    <button type="button" class="submit-btn" onclick="showProposalConfirm_id()">確認画面へ</button>
+  </form>
+
+  <div id="proposalConfirmScreen" style="display:none;"></div>
+</section>
+
+<script>
+const labelMap_id = {
+  "id-input_date":"ご記入日","id-company_name":"貴社名","id-kinyu_name":"御記入者名",
+  "id-tanto_tel":"お電話","id-tanto_mail":"メールアドレス","id-setubi-id":"設備ID",
+  "id-sangyokyoku":"担当経済産業局","id-jigyosyamei":"事業者名","id-daihyosya-simei":"代表者氏名",
+  "id-setubi-kubun":"発電設備の区分","id-syuturyoku-ninteibi":"発電設備の出力認定日",
+  "id-setubi-meisho":"発電設備の名称","id-sechi-basyo":"発電設備の設置場所",
+  "id-setuzoku-keiyakubi":"接続契約締結日","id-feedback":"ご要望等"
+};
+
+function showProposalConfirm_id() {
+  const form = document.getElementById("idproposalForm");
+  const confirmScreen = document.getElementById("proposalConfirmScreen");
+  const thanks = document.getElementById("proposalThanksMessage");
+
+  const required = form.querySelectorAll("[required]");
+  for (const el of required) {
+    if (!el.value.trim()) {
+      alert(`${labelMap_id[el.name] || el.name} を入力してください`);
+      el.focus();
+      return;
+    }
+  }
+
+  let html = "<h3>以下の内容で送信します。よろしいですか？</h3><table style='width:100%;border-collapse:collapse;'>";
+  confirmScreen.innerHTML = "";
+  const confirmForm = document.createElement("form");
+  confirmForm.id = "proposalConfirmForm";
+  confirmForm.action = form.action;
+  confirmForm.method = "POST";
+
+  for (const el of form.elements) {
+    if (!el.name) continue;
+    const label = labelMap_id[el.name] || el.name;
+    const value = el.value.replace(/\n/g, "<br>");
+    html += `<tr><th style="text-align:left;border:1px solid #ccc;padding:4px;">${label}</th><td style="border:1px solid #ccc;padding:4px;">${value}</td></tr>`;
+    const hidden = document.createElement("input");
+    hidden.type = "hidden";
+    hidden.name = el.name;
+    hidden.value = el.value;
+    confirmForm.appendChild(hidden);
+  }
+
+  html += "</table>";
+  const content = document.createElement("div");
+  content.innerHTML = html;
+  confirmScreen.appendChild(content);
+
+  const btnRow = document.createElement("div");
+  btnRow.className = "button-row";
+
+  const submitBtn = document.createElement("button");
+  submitBtn.type = "submit";
+  submitBtn.className = "submit-btn";
+  submitBtn.textContent = "送信する";
+
+  const backBtn = document.createElement("button");
+  backBtn.type = "button";
+  backBtn.className = "submit-btn";
+  backBtn.textContent = "修正する";
+  backBtn.onclick = function() {
+    confirmScreen.style.display = "none";
+    form.style.display = "block";
+    thanks.style.display = "none";
+  };
+
+  btnRow.appendChild(submitBtn);
+  btnRow.appendChild(backBtn);
+  confirmForm.appendChild(btnRow);
+  confirmScreen.appendChild(confirmForm);
+
+  form.style.display = "none";
+  confirmScreen.style.display = "block";
+  thanks.style.display = "none";
+
+  confirmForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    fetch(this.action, {
+      method: "POST",
+      body: formData
+    })
+    .then(res => {
+      if (res.ok) {
+        confirmScreen.style.display = "none";
+        form.reset();
+        form.style.display = "block";
+        thanks.style.display = "block";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        alert("送信に失敗しました。");
+      }
+    })
+    .catch(() => {
+      alert("通信エラーが発生しました。");
+    });
+  });
+}
+</script>
+
+</body>
+</html>

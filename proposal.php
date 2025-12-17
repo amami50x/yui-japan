@@ -1,3 +1,4 @@
+
 <?php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -48,10 +49,39 @@ $mapping = [
     'feedback' => '㉗ご要望等ご記入ください'
 ];
 
+// JSON応答のため、ヘッダーを最初に設定
+header('Content-Type: application/json; charset=UTF-8');
+
 try {
-    // CSV書き込み処理
+    // ----------------------------------------------------
+    // 🚨 必須チェックの追加（最優先で実行し、失敗時は即座に終了）
+    // ----------------------------------------------------
+    // 'feedback' (ご要望等) 以外の全項目を必須とする
+    $required_keys = array_diff(array_keys($mapping), ['feedback']);
+    $missing = [];
+    foreach ($required_keys as $key) {
+        if (!isset($data[$key]) || $data[$key] === '') {
+            $missing[] = $mapping[$key]; // 日本語ラベルをリストに追加
+        }
+    }
+
+    if (!empty($missing)) {
+        // 空欄がある場合はCSVへ書き込まずエラー応答
+        http_response_code(400);
+        echo json_encode([
+            'status' => 'error',
+            'message' => '必須項目が未入力です: ' . implode(', ', $missing)
+        ]);
+        exit; // 必須チェック失敗時にここで処理を中断
+    }
+
+    // ----------------------------------------------------
+    // CSV書き込み処理（必須チェック通過後のみ実行）
+    // ----------------------------------------------------
     $is_new = !file_exists($filename);
-    $fp = fopen($filename, $is_new ? 'w' : 'a');
+    
+    // ファイルモードを 'a' (追記専用) に統一し、既存ファイルの上書きを防ぎます。
+    $fp = fopen($filename, 'a');
     if (!$fp) throw new Exception('CSVファイルを開けません');
 
     if ($is_new) {
@@ -66,14 +96,17 @@ try {
     $row = [date('Y-m-d'), date('Y-m-d H:i:s')];
     foreach (array_keys($mapping) as $key) {
         $value = $data[$key] ?? '';
-        $value = str_replace(["\r\n", "\r", "\n"], "\r\n", $value);
+        // 改行コードの置換は元のコードを維持
+        $value = str_replace(["\r\n", "\r", "\n"], "\r\n", $value); 
         $row[] = $value;
     }
     $row = array_map(fn($v) => mb_convert_encoding($v, 'SJIS-win', 'UTF-8'), $row);
     fputcsv($fp, $row);
     fclose($fp);
 
-    // ✉️ メール送信処理（ISO-2022-JPで文字化け対策）
+    // ----------------------------------------------------
+    // ✉️ メール送信処理（必須チェック通過後のみ実行）
+    // ----------------------------------------------------
     $to = 'info@yuijima.com';
     $from = 'amami50x@yuijima.com';
 
@@ -108,5 +141,7 @@ try {
     }
 
 } catch (Exception $e) {
-    echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+    // 致命的なエラーの処理
+    http_response_code(500);
+    echo json_encode(['status' => 'error', 'message' => 'サーバー処理中にエラーが発生しました。']);
 }
