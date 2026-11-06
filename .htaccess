@@ -1,1 +1,13 @@
 AddType application/pdf .pdf
+
+# 2026-11-06 新しいカウントJSONの直読み禁止（PHPの読み書きには影響なし）
+# counter.txt は既存TOP監視のため直読み禁止にはしていない
+<FilesMatch "^(pageview-counts|menu-clicks)\.json$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>

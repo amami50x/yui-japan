@@ -2,9 +2,7 @@
 session_start();
 
 // ==== 簡単なログイン認証 ====
-$admin_user = "admin";
-$admin_pass = "password123";
-
+require __DIR__ . '/admin-auth.inc.php';
 if (!isset($_SESSION['login'])) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($_POST['user'] === $admin_user && $_POST['pass'] === $admin_pass) {

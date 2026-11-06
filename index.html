@@ -28,7 +28,7 @@
 </header>
 
 <div class="hero-image-wrapper" style="position:relative;">
-  <img src="images/top-page.webp" alt="カタログ1ページ目" class="catalog-image" />
+  <img src="images/top-page-final.jpg" alt="カタログ1ページ目" class="catalog-image" />
   <button class="menu-toggle" id="menu-toggle-btn">☰</button>
   <div class="menu-overlay" id="menu-overlay">
     <nav class="menu-list">
@@ -1065,6 +1065,13 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
-  </body>
+  
+<script src="yui-count.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.yuiBindMenuCounts) { window.yuiBindMenuCounts(); }
+});
+</script>
+</body>
 
 </html>
